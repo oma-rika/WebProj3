@@ -15,6 +15,7 @@ public class LoginDAO {
 	public LoginDTO select(String username, String password){
 		DBConnector db = new DBConnector();
 		Connection con = db.getConnection();
+
 		LoginDTO dto = new LoginDTO();
 
 		String sql = "select * from users where user_name=? and password=?";
@@ -26,13 +27,13 @@ public class LoginDAO {
 			ResultSet rs = ps.executeQuery();
 
 			if(rs.next()){
-				dto.setUsername(rs.getString("username"));
+				dto.setUsername(rs.getString("user_name"));
 				dto.setPassword(rs.getString("password"));
 			} else {
 				dto.setUsername("該当なし");
 				dto.setPassword("該当なし");
 			}
-		} catch(SQLException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		try {
@@ -42,4 +43,5 @@ public class LoginDAO {
 		}
 		return dto;
 	}
+
 }

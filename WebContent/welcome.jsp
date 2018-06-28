@@ -5,9 +5,15 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Login</title>
+<title>Welcome</title>
 </head>
 <body>
-  <s:property value="username" />さん、ようこそ!
+名前とパスワードを入力してください。
+<s:form method="post" action="LoginAction">
+  <s:textfield name="username" label="ユーザー" />
+  <s:password name="password" label="パスワード" />
+  <s:submit value="送信"/>
+</s:form>
+
 </body>
 </html>

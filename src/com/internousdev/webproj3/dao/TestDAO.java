@@ -2,39 +2,35 @@ package com.internousdev.webproj3.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.internousdev.webproj3.dto.HelloStrutsDTO;
 import com.internousdev.webproj3.util.DBConnector;
 
 
-public class HelloStrutsDAO {
-	public HelloStrutsDTO select() {
-
+public class TestDAO {
+	public int insert(String username, String password) {
+		int ret = 0;
 		DBConnector db = new DBConnector();
 		Connection con = db.getConnection();
-		HelloStrutsDTO dto = new HelloStrutsDTO();
 
-		String sql = "select * from users";
-
+		String sql = "insert into users(user_name, password) values(?, ?)";
 		try {
 			PreparedStatement ps = con.prepareStatement(sql);
-			ResultSet rs = ps.executeQuery();
-
-			if(rs.next()){
-				dto.setResult("MySQLと接続できます");
-			} else {
-				dto.setResult("MySQLと接続できません。");
+			ps.setString(1, username);
+			ps.setString(2, password);
+			int i = ps.executeUpdate();
+			if(i > 0) {
+				System.out.println(i + "件登録されました");
+				ret = i;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		try  {
+		try {
 			con.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return dto;
+		return ret;
 	}
 }
